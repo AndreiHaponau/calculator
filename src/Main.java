@@ -62,34 +62,27 @@ public class Main {
     }
 
     static String arabicToRoman(int number) {
-        if (number < 1 || number > 10) {
-            throw new IllegalArgumentException("Римские числа от 1 до 10");
+        if (number < 1 || number > 100) {
+            throw new IllegalArgumentException("Римские числа должны быть от 1 до 100");
         }
-        switch (number) {
-            case 1:
-                return "I";
-            case 2:
-                return "II";
-            case 3:
-                return "III";
-            case 4:
-                return "IV";
-            case 5:
-                return "V";
-            case 6:
-                return "VI";
-            case 7:
-                return "VII";
-            case 8:
-                return "VIII";
-            case 9:
-                return "IX";
-            case 10:
-                return "X";
-            default:
-                throw new IllegalArgumentException("Invalid number");
+
+        String[] romanNumerals = {
+                "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"
+        };
+        int[] arabicValues = {
+                100, 90, 50, 40, 10, 9, 5, 4, 1
+        };
+
+        StringBuilder roman = new StringBuilder();
+        for (int i = 0; i < arabicValues.length; i++) {
+            while (number >= arabicValues[i]) {
+                number -= arabicValues[i];
+                roman.append(romanNumerals[i]);
+            }
         }
+        return roman.toString();
     }
+
 
     static String checkSameNumberSystem(String[] s) {
         if (isRoman(s[0]) && isRoman(s[2])) {
